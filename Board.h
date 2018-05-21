@@ -44,11 +44,9 @@ class Board {
     }
     
     ~Board(){
-        delete &bSize;
-	    for (int i = 0; i < bSize; i++) {
+        for (int i = 0; i <bSize ; ++i) {
             delete[] pBoard[i];
-        }   
-        delete[] pBoard;
+        }
     }
     
     
