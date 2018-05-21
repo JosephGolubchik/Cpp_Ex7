@@ -7,7 +7,7 @@
 class TicTacToe {
   
   Board* gameBoard;
-  bool finished;
+  Board* finalBoard;
   bool player;
   bool gameWinner;
   string winnerName;
@@ -24,15 +24,17 @@ class TicTacToe {
   bool checkTie();
   bool isFull();
   bool checkWin();
+  void initBoard();
   
   TicTacToe(int size){
     gameBoard = new Board{size};
+    finalBoard = new Board{size};
     player = 0;
-    gameWinner = 1;
   }
   
   ~TicTacToe(){
     delete gameBoard;
+    delete finalBoard;
   }
 
 };
