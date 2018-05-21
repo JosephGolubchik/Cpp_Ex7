@@ -3,15 +3,48 @@
 void TicTacToe::play(Player& pA, Player& pB){
     pA.setChar('X');
     pB.setChar('O');
+    
+    int i = 0;
     while(!(this->checkWin())){
         if(!player){ // playerA's turn
-            pA.play(*gameBoard);
-            player = !player;
+            try{
+                Coordinate chosenSpot = pA.play(*gameBoard);
+                if ((*gameBoard)[chosenSpot] != '.'){
+                    throw string("Illegal Player");
+                }
+                else{
+                    (*gameBoard)[chosenSpot] = 'X';
+                    player = !player;
+                    (*finalBoard) = (*gameBoard);
+                }
+            }
+            catch(...){
+                gameWinner = 1;
+                winnerName = pB.name();
+                initBoard();
+                return;
+            }
         }
         else{
-            pB.play(*gameBoard);
-            player = !player;
+            try{
+                Coordinate chosenSpot = pB.play(*gameBoard);
+                if ((*gameBoard)[chosenSpot] != '.'){
+                    throw string("Illegal Player");
+                }
+                else{
+                    (*gameBoard)[chosenSpot] = 'O';
+                    player = !player;
+                    (*finalBoard) = (*gameBoard);
+                }
+            }
+            catch(...){
+                gameWinner = 0;
+                winnerName = pA.name();
+                initBoard();
+                return;
+            }
         }
+        
     }
     
     if(gameWinner == 0){
@@ -21,6 +54,14 @@ void TicTacToe::play(Player& pA, Player& pB){
         winnerName = pB.name();
     }
     
+    initBoard();
+    
+    
+}
+
+void TicTacToe::initBoard(){
+    (*gameBoard) = '.';
+    player = 0;
 }
 
 bool TicTacToe::checkWin(){
@@ -121,29 +162,64 @@ bool TicTacToe::checkOtherDiag(){
 
 
 Board TicTacToe::board() const{
-    return *gameBoard;
+    return (*finalBoard);
 }
 
 Player& TicTacToe::winner() const{
-    if(winnerName=="Champion"){
-        Champion *temp = new Champion;
-        return *temp;
+    if(gameWinner == 0){
+        if(winnerName=="Champion"){
+            Champion *temp = new Champion;
+            temp->setChar('X');
+            return *temp;
+        }
+        if(winnerName=="XYPlayer"){
+            XYPlayer *temp = new XYPlayer;
+            temp->setChar('X');
+            return *temp;
+        }
+        if(winnerName=="YXPlayer"){
+            YXPlayer *temp = new YXPlayer;
+            temp->setChar('X');
+            return *temp;
+        }
+        if(winnerName=="IllegalPlayer"){
+            IllegalPlayer *temp = new IllegalPlayer;
+            temp->setChar('X');
+            return *temp;
+        }
+        if(winnerName=="ExceptionPlayer"){
+            ExceptionPlayer *temp = new ExceptionPlayer;
+            temp->setChar('X');
+            return *temp;
+        }
     }
-    if(winnerName=="XYPlayer"){
-        XYPlayer *temp = new XYPlayer;
-        return *temp;
+    else{
+        if(winnerName=="Champion"){
+            Champion *temp = new Champion;
+            temp->setChar('O');
+            return *temp;
+        }
+        if(winnerName=="XYPlayer"){
+            XYPlayer *temp = new XYPlayer;
+            temp->setChar('O');
+            return *temp;
+        }
+        if(winnerName=="YXPlayer"){
+            YXPlayer *temp = new YXPlayer;
+            temp->setChar('O');
+            return *temp;
+        }
+        if(winnerName=="IllegalPlayer"){
+            IllegalPlayer *temp = new IllegalPlayer;
+            temp->setChar('O');
+            return *temp;
+        }
+        if(winnerName=="ExceptionPlayer"){
+            ExceptionPlayer *temp = new ExceptionPlayer;
+            temp->setChar('O');
+            return *temp;
+        }
     }
-    if(winnerName=="YXPlayer"){
-        YXPlayer *temp = new YXPlayer;
-        return *temp;
-    }
-    if(winnerName=="IllegalPlayer"){
-        IllegalPlayer *temp = new IllegalPlayer;
-        return *temp;
-    }
-    if(winnerName=="ExceptionPlayer"){
-        ExceptionPlayer *temp = new ExceptionPlayer;
-        return *temp;
-    }
+    
 
 }
