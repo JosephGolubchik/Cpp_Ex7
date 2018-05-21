@@ -6,8 +6,8 @@ using std::string;
 
 class Coordinate{
     public:
-    uint x;
-    uint y;
+    int x;
+    int y;
     char data;
     
     Coordinate(){
@@ -18,7 +18,25 @@ class Coordinate{
         this->data = c;
     }
     
+    Coordinate(int x,int y){
+        this->x = x;
+        this->y = y;
+        this->data = '.';
+    }
+    
     Coordinate(uint x,uint y){
+        this->x = x;
+        this->y = y;
+        this->data = '.';
+    }
+    
+    Coordinate(int x,uint y){
+        this->x = x;
+        this->y = y;
+        this->data = '.';
+    }
+    
+    Coordinate(uint x,int y){
         this->x = x;
         this->y = y;
         this->data = '.';
