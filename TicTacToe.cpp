@@ -46,7 +46,7 @@ bool TicTacToe::isFull(){
 }
 
 bool TicTacToe::checkRows(){
-    int countCorrect;
+    uint countCorrect;
     uint n = gameBoard->size();
     for (uint i = 0; i < n; i++) { // check for winning row
         countCorrect = 0;
@@ -66,7 +66,7 @@ bool TicTacToe::checkRows(){
 }
 
 bool TicTacToe::checkCol(){
-    int countCorrect;
+    uint countCorrect;
     uint n = gameBoard->size();
     
     for (uint j = 0; j < n; j++) { // check for winning colum
