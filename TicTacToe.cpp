@@ -4,6 +4,8 @@ void TicTacToe::play(Player& pA, Player& pB){
     pA.setChar('X');
     pB.setChar('O');
     
+    (*finalBoard) = '.';
+    
     int i = 0;
     while(!(this->checkWin())){
         if(!player){ // playerA's turn
