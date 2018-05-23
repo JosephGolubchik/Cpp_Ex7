@@ -7,7 +7,7 @@ void TicTacToe::play(Player& pA, Player& pB){
     (*finalBoard) = '.';
     
     int i = 0;
-    while(!(this->checkWin())){
+    while(!finished){
         if(!player){ // playerA's turn
             try{
                 Coordinate chosenSpot = pA.play(*gameBoard);
@@ -18,6 +18,12 @@ void TicTacToe::play(Player& pA, Player& pB){
                     (*gameBoard)[chosenSpot] = 'X';
                     player = !player;
                     (*finalBoard) = (*gameBoard);
+                    if(checkTie()){
+                        winner = 1;
+                        finished = true;
+                    }
+                    if(checkWin()) finished = true;
+                    cout << this->board() << endl;
                 }
             }
             catch(...){
@@ -37,6 +43,8 @@ void TicTacToe::play(Player& pA, Player& pB){
                     (*gameBoard)[chosenSpot] = 'O';
                     player = !player;
                     (*finalBoard) = (*gameBoard);
+                    if(checkWin()) finished = true;
+                    cout << this->board() << endl;
                 }
             }
             catch(...){
@@ -64,6 +72,7 @@ void TicTacToe::play(Player& pA, Player& pB){
 void TicTacToe::initBoard(){
     (*gameBoard) = '.';
     player = 0;
+    finished = 0;
 }
 
 bool TicTacToe::checkWin(){
@@ -102,6 +111,9 @@ bool TicTacToe::checkRows(){
             if((*gameBoard)[{i,0}] == 'X'){
                 gameWinner = 0;
             }
+            else{
+                gameWinner = 1;
+            }
             return true;
         }
     }
@@ -123,6 +135,9 @@ bool TicTacToe::checkCol(){
             if((*gameBoard)[{0,j}] == 'X'){
                 gameWinner = 0;
             }
+            else{
+                gameWinner = 1;
+            }
             return true;
         }
     }
@@ -141,6 +156,9 @@ bool TicTacToe::checkMainDiag(){
     if((*gameBoard)[{0,0}] == 'X'){
         gameWinner = 0;
     }
+    else{
+        gameWinner = 1;
+    }
     
     return true;
 }
@@ -156,6 +174,9 @@ bool TicTacToe::checkOtherDiag(){
     
     if((*gameBoard)[{0,n-1}] == 'X'){
         gameWinner = 0;
+    }
+    else{
+        gameWinner = 1;
     }
     
     return true;
