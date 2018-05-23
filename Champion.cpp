@@ -21,7 +21,7 @@ const Coordinate Champion::play(const Board& board) {
 			return {0,n};
 		}
 		
-		if(board[{0,1}] == '.' && board[{0,n}] == '.'){
+		if(board[{0,1}] == '.' && board[{n,0}] == '.'){
 			return {n,0};
 		}
 		
