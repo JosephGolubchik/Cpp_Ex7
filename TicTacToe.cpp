@@ -22,11 +22,11 @@ void TicTacToe::play(Player& pA, Player& pB){
                     if(checkWin()){
                         finished = true;
                     }
-                    // else if(isFull()){
-                    //     cout << "stupid tie1" << endl;
-                    //     gameWinner = 1;
-                    //     finished = true;
-                    // }
+                    else if(isFull()){
+                        cout << "stupid tie1" << endl;
+                        gameWinner = 1;
+                        finished = true;
+                    }
                     // cout << this->board() << endl;
                 }
             }
@@ -51,11 +51,11 @@ void TicTacToe::play(Player& pA, Player& pB){
                     if(checkWin()){
                         finished = true;
                     }
-                    // else if(isFull()){
-                    //     cout << "stupid tie2" << endl;
-                    //     gameWinner = 1;
-                    //     finished = true;
-                    // }
+                    else if(isFull()){
+                        cout << "stupid tie2" << endl;
+                        gameWinner = 1;
+                        finished = true;
+                    }
                     // cout << this->board() << endl;
                 }
             }
