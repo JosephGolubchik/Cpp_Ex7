@@ -12,7 +12,7 @@ void TicTacToe::play(Player& pA, Player& pB){
             try{
                 Coordinate chosenSpot = pA.play(*gameBoard);
                 if ((*gameBoard)[chosenSpot] != '.'){
-                    // cout << "illegal move at " << chosenSpot.x << "," << chosenSpot.y << endl;
+                    cout << "illegal move at " << chosenSpot << "!" << endl;
                     throw string("Illegal Player");
                 }
                 else{
@@ -27,7 +27,7 @@ void TicTacToe::play(Player& pA, Player& pB){
                         gameWinner = 1;
                         finished = true;
                     }
-                    // cout << this->board() << endl;
+                    cout << this->board() << endl;
                 }
             }
             catch(...){
@@ -41,7 +41,7 @@ void TicTacToe::play(Player& pA, Player& pB){
             try{
                 Coordinate chosenSpot = pB.play(*gameBoard);
                 if ((*gameBoard)[chosenSpot] != '.'){
-                    // cout << "illegal move at " << chosenSpot.x << "," << chosenSpot.y << endl;
+                    cout << "illegal move at " << chosenSpot.x << "," << chosenSpot.y << endl;
                     throw string("Illegal Player");
                 }
                 else{
@@ -56,7 +56,7 @@ void TicTacToe::play(Player& pA, Player& pB){
                         gameWinner = 1;
                         finished = true;
                     }
-                    // cout << this->board() << endl;
+                    cout << this->board() << endl;
                 }
             }
             catch(...){
@@ -68,10 +68,6 @@ void TicTacToe::play(Player& pA, Player& pB){
         }
         
     }
-    
-    if(pA.name() == "Champion") pA.firstMove = 0;
-    if(pB.name() == "Champion") pB.firstMove = 0;
-    
     if(gameWinner == 0){
         winnerName = pA.name();
     }
@@ -275,8 +271,4 @@ Player& TicTacToe::winner() const{
             return *temp;
         }
     }
-    
-    ExceptionPlayer *temp = new ExceptionPlayer;
-    temp->setChar('X');
-    return *temp;
 }
