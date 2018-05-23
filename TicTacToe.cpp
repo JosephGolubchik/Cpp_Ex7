@@ -24,8 +24,8 @@ void TicTacToe::play(Player& pA, Player& pB){
                     }
                     else if(isFull()){
                         cout << "stupid tie1" << endl;
-                        gameWinner = 1;
-                        finished = true;
+                        // gameWinner = 1;
+                        // finished = true;
                     }
                     // cout << this->board() << endl;
                 }
@@ -53,8 +53,8 @@ void TicTacToe::play(Player& pA, Player& pB){
                     }
                     else if(isFull()){
                         cout << "stupid tie2" << endl;
-                        gameWinner = 1;
-                        finished = true;
+                        // gameWinner = 1;
+                        // finished = true;
                     }
                     // cout << this->board() << endl;
                 }
@@ -101,7 +101,7 @@ bool TicTacToe::checkTie(){
 bool TicTacToe::isFull(){
     uint n = gameBoard->size();
     for (uint i = 0; i < n; i++) {
-        for (uint j = 0; j < n; i++) {
+        for (uint j = 0; j < n; j++) {
             if((*gameBoard)[{i,j}] == '.')
                 return false;
         }
