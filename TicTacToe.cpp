@@ -19,7 +19,7 @@ void TicTacToe::play(Player& pA, Player& pB){
                     player = !player;
                     (*finalBoard) = (*gameBoard);
                     if(checkTie()){
-                        winner = 1;
+                        gameWinner = 1;
                         finished = true;
                     }
                     if(checkWin()) finished = true;
