@@ -7,6 +7,7 @@ class Player{
   public:
   string sName;
   char myChar;
+  bool firstMove = false;
   
   virtual const string name() const;
   virtual const Coordinate play(const Board& board) = 0;
