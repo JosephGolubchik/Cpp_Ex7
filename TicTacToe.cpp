@@ -20,14 +20,14 @@ void TicTacToe::play(Player& pA, Player& pB){
                     player = !player;
                     (*finalBoard) = (*gameBoard);
                     if(checkWin()){
+                        gameWinner = 0;
                         finished = true;
                     }
                     else if(isFull()){
-                        cout << "stupid tie1" << endl;
                         gameWinner = 1;
                         finished = true;
                     }
-                    // cout << this->board() << endl;
+                    cout << this->board() << endl;
                 }
             }
             catch(...){
@@ -49,14 +49,14 @@ void TicTacToe::play(Player& pA, Player& pB){
                     player = !player;
                     (*finalBoard) = (*gameBoard);
                     if(checkWin()){
-                        finished = true;
-                    }
-                    else if(isFull()){
-                        cout << "stupid tie2" << endl;
                         gameWinner = 1;
                         finished = true;
                     }
-                    // cout << this->board() << endl;
+                    else if(isFull()){
+                        gameWinner = 1;
+                        finished = true;
+                    }
+                    cout << this->board() << endl;
                 }
             }
             catch(...){
@@ -68,16 +68,13 @@ void TicTacToe::play(Player& pA, Player& pB){
         }
         
     }
-    
     if(gameWinner == 0){
         winnerName = pA.name();
     }
     else{
         winnerName = pB.name();
     }
-    
     initBoard();
-    
     
 }
 
@@ -124,13 +121,11 @@ bool TicTacToe::checkRows(){
         
         if (countX == n){
             gameWinner = 0;
-            cout<<"1"<<endl;
             return true;
         }
         
         if (countO == n){
             gameWinner = 1;
-            cout<<"2"<<endl;
             return true;
         }
     }
@@ -153,13 +148,11 @@ bool TicTacToe::checkCol(){
         
         if (countX == n){
             gameWinner = 0;
-            cout<<"3"<<endl;
             return true;
         }
         
         if (countO == n){
             gameWinner = 1;
-            cout<<"4"<<endl;
             return true;
         }
         
@@ -180,13 +173,11 @@ bool TicTacToe::checkMainDiag(){
     
     if (countX == n){
         gameWinner = 0;
-        cout<<"5"<<endl;
         return true;
     }
         
     if (countO == n){
         gameWinner = 1;
-        cout<<"6"<<endl;
         return true;
     }
     
@@ -208,13 +199,11 @@ bool TicTacToe::checkOtherDiag(){
     
     if (countX == n){
         gameWinner = 0;
-        cout<<"7"<<endl;
         return true;
     }
         
     if (countO == n){
         gameWinner = 1;
-        cout<<"8"<<endl;
         return true;
     }
     
