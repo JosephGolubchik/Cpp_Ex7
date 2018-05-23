@@ -240,9 +240,4 @@ Player& TicTacToe::winner() const{
         }
     }
     
-    ExceptionPlayer *temp = new ExceptionPlayer;
-    temp->setChar('.');
-    return *temp;
-    
-
 }
