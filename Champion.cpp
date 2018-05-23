@@ -17,11 +17,11 @@ const Coordinate Champion::play(const Board& board) {
 	else{ // the champion didn't start
 		if(board[{n,n}] == '.') return {n,n};
 		
-		if(board[{1,0}] == '.'){
+		if(board[{1,0}] == '.' && board[{0,n}] == '.'){
 			return {0,n};
 		}
 		
-		if(board[{0,1}] == '.'){
+		if(board[{0,1}] == '.' && board[{0,n}] == '.'){
 			return {n,0};
 		}
 		
