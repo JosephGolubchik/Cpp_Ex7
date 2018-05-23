@@ -11,7 +11,6 @@ class TicTacToe {
   bool player;
   bool gameWinner;
   string winnerName;
-  bool finished = 0;
   
   
   public:
