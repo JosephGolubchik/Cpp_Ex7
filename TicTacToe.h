@@ -11,12 +11,14 @@ class TicTacToe {
   bool player;
   bool gameWinner;
   string winnerName;
+  bool finished = 0;
   
   
   public:
   void play(Player& pA, Player& pB);
   Board board() const;
   Player& winner() const;
+  bool finished;
   bool checkRows();
   bool checkCol();
   bool checkMainDiag();
@@ -30,6 +32,7 @@ class TicTacToe {
     gameBoard = new Board{size};
     finalBoard = new Board{size};
     player = 0;
+    finished = 0;
   }
   
   ~TicTacToe(){
