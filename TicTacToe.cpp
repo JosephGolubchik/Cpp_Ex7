@@ -12,22 +12,14 @@ void TicTacToe::play(Player& pA, Player& pB){
             try{
                 Coordinate chosenSpot = pA.play(*gameBoard);
                 if ((*gameBoard)[chosenSpot] != '.'){
-                    cout << "illegal move at " << chosenSpot << "!" << endl;
                     throw string("Illegal Player");
                 }
                 else{
                     (*gameBoard)[chosenSpot] = 'X';
                     player = !player;
                     (*finalBoard) = (*gameBoard);
-                    if(checkWin()){
-                        gameWinner = 0;
-                        finished = true;
-                    }
-                    else if(isFull()){
-                        gameWinner = 1;
-                        finished = true;
-                    }
-                    cout << this->board() << endl;
+                    if(checkWin()) finished = true;
+                    cout << this->board();
                 }
             }
             catch(...){
@@ -41,22 +33,14 @@ void TicTacToe::play(Player& pA, Player& pB){
             try{
                 Coordinate chosenSpot = pB.play(*gameBoard);
                 if ((*gameBoard)[chosenSpot] != '.'){
-                    cout << "illegal move at " << chosenSpot.x << "," << chosenSpot.y << endl;
                     throw string("Illegal Player");
                 }
                 else{
                     (*gameBoard)[chosenSpot] = 'O';
                     player = !player;
                     (*finalBoard) = (*gameBoard);
-                    if(checkWin()){
-                        gameWinner = 1;
-                        finished = true;
-                    }
-                    else if(isFull()){
-                        gameWinner = 1;
-                        finished = true;
-                    }
-                    cout << this->board() << endl;
+                    if(checkWin()) finished = true;
+                    cout << this->board();
                 }
             }
             catch(...){
@@ -68,13 +52,16 @@ void TicTacToe::play(Player& pA, Player& pB){
         }
         
     }
+    
     if(gameWinner == 0){
         winnerName = pA.name();
     }
     else{
         winnerName = pB.name();
     }
+    
     initBoard();
+    
     
 }
 
@@ -98,7 +85,7 @@ bool TicTacToe::checkTie(){
 bool TicTacToe::isFull(){
     uint n = gameBoard->size();
     for (uint i = 0; i < n; i++) {
-        for (uint j = 0; j < n; j++) {
+        for (uint j = 0; j < n; i++) {
             if((*gameBoard)[{i,j}] == '.')
                 return false;
         }
@@ -110,22 +97,19 @@ bool TicTacToe::checkRows(){
     uint countCorrect;
     uint n = gameBoard->size();
     for (uint i = 0; i < n; i++) { // check for winning row
-    
-        int countX = 0;
-        int countO = 0;
-        
-        for (int j = 0; j < n; j++) {
-            if((*gameBoard)[{i,j}] == 'X') countX++;
-            if((*gameBoard)[{i,j}] == 'O') countO++;
+        countCorrect = 0;
+        for (uint j = 0; j < n-1; j++) {
+            if((*gameBoard)[{i,j}] != '.' && (*gameBoard)[{i,j}] == (*gameBoard)[{i,j+1}]){
+                countCorrect++;
+            }
         }
-        
-        if (countX == n){
-            gameWinner = 0;
-            return true;
-        }
-        
-        if (countO == n){
-            gameWinner = 1;
+        if(countCorrect == n-1){
+            if((*gameBoard)[{i,0}] == 'X'){
+                gameWinner = 0;
+            }
+            else{
+                gameWinner = 1;
+            }
             return true;
         }
     }
@@ -137,25 +121,21 @@ bool TicTacToe::checkCol(){
     uint n = gameBoard->size();
     
     for (uint j = 0; j < n; j++) { // check for winning colum
-        
-        int countX = 0;
-        int countO = 0;
-        
-        for (int i = 0; i < n; i++) {
-            if((*gameBoard)[{i,j}] == 'X') countX++;
-            if((*gameBoard)[{i,j}] == 'O') countO++;
+        countCorrect = 0;
+        for (uint i = 0; i < n-1; i++) {
+            if((*gameBoard)[{i,j}] != '.' && (*gameBoard)[{i,j}] == (*gameBoard)[{i+1,j}]){
+                 countCorrect++;
+            }
         }
-        
-        if (countX == n){
-            gameWinner = 0;
+        if(countCorrect == n-1){
+            if((*gameBoard)[{0,j}] == 'X'){
+                gameWinner = 0;
+            }
+            else{
+                gameWinner = 1;
+            }
             return true;
         }
-        
-        if (countO == n){
-            gameWinner = 1;
-            return true;
-        }
-        
     }
     return false;
 }
@@ -163,51 +143,39 @@ bool TicTacToe::checkCol(){
 bool TicTacToe::checkMainDiag(){
     uint n = gameBoard->size();
     
-    int countX = 0;
-    int countO = 0;
-    
-    for (int i = 0; i < n; i++) {
-        if((*gameBoard)[{i,i}] == 'X') countX++;
-        if((*gameBoard)[{i,i}] == 'O') countO++;
+    for (uint i = 0; i < n-1; i++) { // check for winning main diagonal
+        if((*gameBoard)[{i,i}] == '.' || (*gameBoard)[{i,i}] != (*gameBoard)[{i+1,i+1}]){
+                return false;
+        }
     }
     
-    if (countX == n){
+    if((*gameBoard)[{0,0}] == 'X'){
         gameWinner = 0;
-        return true;
     }
-        
-    if (countO == n){
+    else{
         gameWinner = 1;
-        return true;
     }
     
-    return false;
+    return true;
 }
 
 bool TicTacToe::checkOtherDiag(){
-    
     uint n = gameBoard->size();
     
-    int countX = 0;
-    int countO = 0;
-    
-    for (int i = 0; i < n; i++) {
-        if((*gameBoard)[{i,n-i-1}] == 'X') countX++;
-        if((*gameBoard)[{i,n-i-1}] == 'O') countO++;
+    for (uint i = 0; i < n-1; i++) { // check for winning main diagonal
+        if((*gameBoard)[{i,n-i-1}] == '.' || (*gameBoard)[{i,n-i-1}] != (*gameBoard)[{i+1,n-i-2}]){
+                return false;
+        }
     }
     
-    
-    if (countX == n){
+    if((*gameBoard)[{0,n-1}] == 'X'){
         gameWinner = 0;
-        return true;
     }
-        
-    if (countO == n){
+    else{
         gameWinner = 1;
-        return true;
     }
     
-    return false;
+    return true;
 }
 
 
@@ -271,6 +239,10 @@ Player& TicTacToe::winner() const{
             return *temp;
         }
     }
+    
+    ExceptionPlayer *temp = new ExceptionPlayer;
+    temp->setChar('.');
+    return *temp;
     
 
 }
